@@ -1,0 +1,16 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = ci
+    merge_method: squash
+    batch_size: 1
+
+pull_request_rules:
+  - name: queue green pull requests
+    conditions:
+      - check-success = ci
+      - -draft
+      - -conflict
+    actions:
+      queue:
+        name: default
